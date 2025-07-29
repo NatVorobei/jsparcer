@@ -13,7 +13,12 @@ const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
 function loadSeenUrls(file) {
   if (!fs.existsSync(file)) return new Set();
-  const data = JSON.parse(fs.readFileSync(file, "utf-8"));
+  let data = [];
+    try {
+    data = JSON.parse(fs.readFileSync(file, "utf-8"));
+    } catch (e) {
+    console.warn(`⚠️ Помилка читання ${file}, створюю новий`);
+    }
   return new Set(data);
 }
 
